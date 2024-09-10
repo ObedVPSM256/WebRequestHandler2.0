@@ -17,7 +17,7 @@ class WebRequestHandler(BaseHTTPRequestHandler):
 
     def get_response(self):
         return f"""
-    <h1> Hola Web </h1>
+    <h1> Proyecto: web-uno Autor: luis </h1>
     <p> URL Parse Result : {self.url()}         </p>
     <p> Path Original: {self.path}         </p>
     <p> Headers: {self.headers}      </p>

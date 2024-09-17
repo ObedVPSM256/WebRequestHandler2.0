@@ -68,7 +68,7 @@ class WebRequestHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-Type", "text/html")
             self.end_headers()
-            self.wfile.write(content.encode("utf-8"))
+            self.wfile.write(self.get_response().encode("utf-8"))
         else:
             # Si no existe, devolver un error 404
             self.send_response(404)
@@ -77,13 +77,28 @@ class WebRequestHandler(BaseHTTPRequestHandler):
             self.wfile.write("<h1>Página no encontrada</h1>".encode("utf-8"))
    
     def get_response(self):
-        try:
+               return f"""
+    <h1> Hola Web </h1>
+    <h1>{self.url().path.split('/')[-2]}: {self.url().path.split('/')[-1]} {self.query_data()} <h1>
+    <p> URL Parse Result : {self.url()}         </p>
+    <p> Path Original: {self.path}         </p>
+    <p> Headers: {self.headers}      </p>
+    <p> Query: {self.query_data()}   </p>
+        <form action="" method="post" class="forma-ejemplo">
+        <div class="forma">
+        <label for="nombre">Nombre: </label>
+        <input type="text" name="nombre" id="nombre" required />
+        </div>
+         <div class="forma">
+            <label for="correoe">Correo: </label>
+            <input type="correoe" name="correoe" id="correoe" required />
+            </div>
+            <div class="forma">
+            <input type="submit" value="Regístrate" />
+            </div>
+            </form>
+"""
 
-            with open('home.html', 'r') as file:
-                return file.read()          
-        except Exception as e:
-                return file("<h1>Error al cargar la página: {e}</h1>")
-        
     contenido = {
         '/': """<html>...</html>""",
         '/proyecto/web-uno': """
@@ -98,3 +113,5 @@ if __name__ == "__main__":
     print("Starting server")
     server = HTTPServer(("0.0.0.0", 8000), WebRequestHandler)
     server.serve_forever()
+    print ("La tiliniza insana comi changos ayuda no sé programar")
+
